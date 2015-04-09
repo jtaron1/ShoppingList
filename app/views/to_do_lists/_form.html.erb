@@ -1,0 +1,31 @@
+<%= form_for @to_do_list, :html => { :class => "form-horizontal to_do_list" } do |f| %>
+
+    <% if @to_do_list.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@to_do_list.errors.count, "error") %> prohibited this to_do_list from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @to_do_list.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@to_do_list[:name]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            to_do_lists_path, :class => 'btn btn-default' %>
+
+<% end %>

@@ -1,0 +1,45 @@
+<%= form_for @to_do_item, :html => { :class => "form-horizontal to_do_item" } do |f| %>
+    <% if @to_do_item.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@to_do_item.errors.count, "error") %> prohibited this to_do_item from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @to_do_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@to_do_item[:name]) %>
+  </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <%= f.hidden_field :list_id, :value => params[:list_id]%>
+      </div>
+      <%= error_span(@to_do_item[:list_id]) %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :position, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :position, :class => 'form-control' %>
+      </div>
+      <%= error_span(@to_do_item[:position]) %>
+    </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              to_do_items_show_url(params[:list_id]), :class => 'btn btn-default' %>
+
+<% end %>
